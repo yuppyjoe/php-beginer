@@ -8,22 +8,25 @@ class Router
 
    protected $routes = [];
 
-   public function add($uri, $controller, $method){
-      
-     
-      $this->routes[] = 
-      // compact("method", "uri", "controller");
-      [
-         "uri" => $uri,
-         "controller" => $controller,
-         "method" => $method
-      ];
+   public function add($uri, $controller, $method)
+   {
+
+
+      $this->routes[] =
+         // compact("method", "uri", "controller");
+         [
+            "uri" => $uri,
+            "controller" => $controller,
+            "method" => $method
+         ];
+
+      return $this;
    }
 
 
    public function get($uri, $controller)
    {
-      $this->routes[] = [
+      return $this->routes[] = [
          "uri" => $uri,
          "controller" => $controller,
          "method" => "GET"
@@ -34,46 +37,47 @@ class Router
    public function post($uri, $controller)
    {
 
-      $this->routes[] = [
-         "uri" => $uri,
-         "controller" => $controller,
-         "method" => "POST"
-      ];
+      return $this->add(
+         ["uri" => $uri],
+         ["controller" => $controller],
+         ["method" => "DELETE"]);
    }
 
 
    public function delete($uri, $controller)
    {
 
-      $this->routes[] = [
-         "uri" => $uri,
-         "controller" => $controller,
-         "method" => "DELETE"
-      ];
+      return $this->add(
+         ["uri" => $uri],
+         ["controller" => $controller],
+         ["method" => "DELETE"]);
    }
 
 
    public function  put($uri, $controller)
    {
 
-      $this->routes[] = [
-         "uri" => $uri,
-         "controller" => $controller,
-         "method" => "PUT"
-      ];
+      return   $this->add(
+         ["uri" => $uri],
+         ["controller" => $controller],
+         ["method" => "PUT"]);
    }
 
 
    public function patch($uri, $controller)
    {
 
-      $this->routes[] = [
-         "uri" => $uri,
-         "controller" => $controller,
-         "method" => "PATCH"
-      ];
+      return  $this->add(
+         ["uri" => $uri],
+         ["controller" => $controller],
+         ["method" => "PATCH"]);
    }
 
+   public function only($key)
+   {
+
+      dd($key);
+   }
 
    public function route($uri, $method)
    {
@@ -88,6 +92,9 @@ class Router
 
       $this->abort();
    }
+
+
+   
 
    protected function abort($code = 404)
    {
